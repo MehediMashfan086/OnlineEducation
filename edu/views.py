@@ -1,11 +1,15 @@
 from django.shortcuts import render
 
+from edu.models import Notes
+
 # Create your views here.
 def home(request):
     return render(request, 'edu/home.html')
 
 def notes(request):
-    return render(request, 'edu/notes.html')
+    notes = Notes.objects.all()
+    context = {'notes': notes}
+    return render(request, 'edu/notes.html', context)
 
 def homework(request):
     return render(request, 'edu/homework.html')
