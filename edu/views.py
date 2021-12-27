@@ -61,6 +61,10 @@ def homework(request):
     context = {'homeworks': homework, 'homeworks_done': homework_done, 'form': form}
     return render(request, 'edu/homework.html', context)
 
+def delete_homework(request, pk = None):
+    Homework.objects.get(id = pk).delete()
+    return redirect("homework")
+
 def youtube(request):
     return render(request, 'edu/youtube.html')
 
