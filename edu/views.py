@@ -25,7 +25,7 @@ def notes(request):
 
 def delete_note(request, pk = None):
     Notes.objects.get(id = pk).delete()
-    return redirect("notes")
+    return redirect('notes')
 
 class NotesDetailView(generic.DetailView):
     model = Notes
@@ -61,9 +61,18 @@ def homework(request):
     context = {'homeworks': homework, 'homeworks_done': homework_done, 'form': form}
     return render(request, 'edu/homework.html', context)
 
+def update_homework(request, pk=None):
+    homework = Homework.objects.get(id=pk)
+    if homework.is_finished == True:
+        homework.is_finished = False
+    else:
+        homework.is_finished = True
+    homework.save()
+    return redirect('homework')
+        
 def delete_homework(request, pk = None):
     Homework.objects.get(id = pk).delete()
-    return redirect("homework")
+    return redirect('homework')
 
 def youtube(request):
     return render(request, 'edu/youtube.html')
