@@ -16,12 +16,13 @@
             </tr>
         </thead>
         <tbody>
+            {% for homework in homeworks %}
             <tr>
-                <th scope="row">1</th>
-                <td>subject</td>
-                <td>title</td>
-                <td>description</td>
-                <td>due</td>
+                <th scope="row">{{forloop.counter}}</th>
+                <td>{{homework.subject}}</td>
+                <td>{{homework.title}}</td>
+                <td>{{homework.description}}</td>
+                <td>{{homework.due}}</td>
 
                 <td>
                     <a href="#">
@@ -35,6 +36,7 @@
                 </td>
                 <td><a href="#"><i class="fa fa-trash fa-2x"></i></a></td>
             </tr>
+            {% endfor %}
         </tbody>
     </table>
     <h4>All homeworks are completed!! Create to have more!!</h4>

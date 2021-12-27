@@ -30,7 +30,9 @@ class NotesDetailView(generic.DetailView):
     model = Notes
 
 def homework(request):
-    return render(request, 'edu/homework.html')
+    homework = Homework.objects.filter(user = request.user)
+    context = {'homeworks': homework}
+    return render(request, 'edu/homework.html', context)
 
 def youtube(request):
     return render(request, 'edu/youtube.html')
