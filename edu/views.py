@@ -75,7 +75,9 @@ def delete_homework(request, pk = None):
     return redirect('homework')
 
 def youtube(request):
-    return render(request, 'edu/youtube.html')
+    form = DashboardForm()
+    context = {'form': form}
+    return render(request, 'edu/youtube.html', context)
 
 def todo(request):
     return render(request, 'edu/todo.html')
