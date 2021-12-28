@@ -106,7 +106,45 @@ def youtube(request):
     return render(request, 'edu/youtube.html', context)
 
 def todo(request):
-    return render(request, 'edu/todo.html')
+    if request.method == "POST":
+        form = TodoForm(request.POST)
+        if form.is_valid():
+            try:
+                finished = request.POST['is_finished']
+                if finished == 'on':
+                    finished = True 
+                else:
+                    finished = False
+            except:
+                finished = False
+            todos = Todo(user=request.user, 
+                          title = request.POST['title'],
+                          is_finished = finished
+                        )
+            todos.save()
+        messages.success(request, f"Todo Added from {request.user.username} Sucessfully !!")
+    else:
+        form = TodoForm()
+    todo = Todo.objects.filter(user = request.user)
+    if len(todo) == 0:
+        todo_done = True
+    else:
+        todo_done = False
+    context = {'todos': todo, 'todos_done': todo_done, 'form': form}
+    return render(request, 'edu/todo.html', context)
+
+def update_todo(request, pk=None):
+    todo = Todo.objects.get(id=pk)
+    if todo.is_finished == True:
+        todo.is_finished = False
+    else:
+        todo.is_finished = True
+    todo.save()
+    return redirect('todo')
+
+def delete_todo(request, pk = None):
+    Todo.objects.get(id = pk).delete()
+    return redirect('todo')
 
 def books(request):
     return render(request, 'edu/books.html')
