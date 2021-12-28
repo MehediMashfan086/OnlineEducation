@@ -296,8 +296,11 @@ def register(request):
             form.save()
             username = form.cleaned_data.get('username')
             messages.success(request, f'Account Created for {username} Successfully !!')
-            #redirect("login")
+            return redirect("login")
     else:
         form = UserRegistrationForm()
     context = {'form': form}
     return render(request, 'edu/register.html', context)
+
+def profile(request):
+    return render(request, 'edu/profile.html')
