@@ -7,11 +7,13 @@ from django.views import generic
 from youtubesearchpython import VideosSearch
 import requests
 import wikipedia
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def home(request):
     return render(request, 'edu/home.html')
 
+@login_required
 def notes(request):
     if request.method == "POST":
         form = NotesForm(request.POST)
@@ -26,6 +28,7 @@ def notes(request):
     context = {'notes': notes, 'form': form}
     return render(request, 'edu/notes.html', context)
 
+@login_required
 def delete_note(request, pk = None):
     Notes.objects.get(id = pk).delete()
     return redirect('notes')
@@ -33,6 +36,7 @@ def delete_note(request, pk = None):
 class NotesDetailView(generic.DetailView):
     model = Notes
 
+@login_required
 def homework(request):
     if request.method == "POST":
         form = HomeworkForm(request.POST)
@@ -64,6 +68,7 @@ def homework(request):
     context = {'homeworks': homework, 'homeworks_done': homework_done, 'form': form}
     return render(request, 'edu/homework.html', context)
 
+@login_required
 def update_homework(request, pk=None):
     homework = Homework.objects.get(id=pk)
     if homework.is_finished == True:
@@ -72,7 +77,8 @@ def update_homework(request, pk=None):
         homework.is_finished = True
     homework.save()
     return redirect('homework')
-        
+
+@login_required        
 def delete_homework(request, pk = None):
     Homework.objects.get(id = pk).delete()
     return redirect('homework')
@@ -107,6 +113,7 @@ def youtube(request):
     context = {'form': form}
     return render(request, 'edu/youtube.html', context)
 
+@login_required
 def todo(request):
     if request.method == "POST":
         form = TodoForm(request.POST)
@@ -135,6 +142,7 @@ def todo(request):
     context = {'todos': todo, 'todos_done': todo_done, 'form': form}
     return render(request, 'edu/todo.html', context)
 
+@login_required
 def update_todo(request, pk=None):
     todo = Todo.objects.get(id=pk)
     if todo.is_finished == True:
@@ -144,6 +152,7 @@ def update_todo(request, pk=None):
     todo.save()
     return redirect('todo')
 
+@login_required
 def delete_todo(request, pk = None):
     Todo.objects.get(id = pk).delete()
     return redirect('todo')
@@ -208,6 +217,7 @@ def dictionary(request):
         form = DashboardForm()
         context = {'form': form}
     return render(request, 'edu/dictionary.html', context)
+
 
 def wiki(request):
     if request.method == "POST":
@@ -302,6 +312,7 @@ def register(request):
     context = {'form': form}
     return render(request, 'edu/register.html', context)
 
+@login_required
 def profile(request):
     homeworks = Homework.objects.filter(is_finished = False, user = request.user)
     todos = Todo.objects.filter(is_finished = False, user = request.user)
