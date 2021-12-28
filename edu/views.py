@@ -232,9 +232,9 @@ def conversion(request):
         if request.POST['measurement'] == 'length':
             measurement_form = ConversionLengthForm()
             context = {
-            'form': form,
-            'm_form': measurement_form,
-            'input': True
+                'form': form,
+                'm_form': measurement_form,
+                'input': True
             }
             if 'input' in request.POST:
                 first = request.POST['measure1']
@@ -288,3 +288,8 @@ def conversion(request):
             'input': False
         }
     return render(request, 'edu/conversion.html', context)
+
+def register(request):
+    form = UserRegistrationForm()
+    context = {'form': form}
+    return render(request, 'edu/register.html', context)

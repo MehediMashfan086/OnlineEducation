@@ -2,6 +2,7 @@ from django import forms
 from django.db.models import fields
 from django.forms.widgets import DateInput
 from . models import *
+from django.contrib.auth.forms import UserCreationForm
 
 class NotesForm(forms.ModelForm):
     class Meta:
@@ -27,7 +28,7 @@ class TodoForm(forms.ModelForm):
 
 class ConversionForm(forms.Form):
     CHOICES = [('length', 'Length'),('mass', 'Mass')]
-    messurment = forms.ChoiceField(choices = CHOICES, widget=forms.RadioSelect)
+    measurement = forms.ChoiceField(choices = CHOICES, widget=forms.RadioSelect)
 
 class ConversionLengthForm(forms.Form):
     CHOICES = [('yard', 'Yard'), ('foot', 'Foot')]
@@ -56,3 +57,8 @@ class ConversionMassForm(forms.Form):
     measure2 = forms.CharField(
         label = '', widget= forms.Select(choices = CHOICES)
     )
+
+class UserRegistrationForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ['username', 'password1', 'password2']
