@@ -27,7 +27,7 @@
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
           <ul class="navbar-nav mb-2 mb-lg-0">
-            <li class="nav-item">
+            <li class="nav-item active">
               <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
             </li>
             {% if user.is_authenticated %}
@@ -85,6 +85,12 @@
     {% endblock content %}
 
   </main>
+
+  <!-- Start Footer -->
+  <footer class="container-fluid bg-dark text-center p-2 mt-5">
+    <small class="text-white">Copyright &copy; 2021 || Designed By Mehedi Hasan || </small>
+  </footer> <!-- End Footer -->
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
     integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
